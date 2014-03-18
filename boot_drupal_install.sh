@@ -1,11 +1,15 @@
 #!/usr/bin/env bash
 
-echo "Installing Task shell...."
-cmd="apt-get install tasksel"
+echo "Updating System...."
+cmd="apt-get update"
 su -c "$cmd"
 
 echo "Installing LAMP stack...."
-cmd="apt-get install lamp-server"
+cmd="sudo apt-get install lamp-server^"
+su -c "$cmd"
+
+echo "Installing php gd shell...."
+cmd="sudo apt-get install php5-gd"
 su -c "$cmd"
 
 echo "Installing Enable apache2 rewrite...."
@@ -52,4 +56,14 @@ su -c "$cmd"
 
 echo "Enable clean URL..."
 cmd="drush vset clean_url 0 --yes"
+su -c "$cmd"
+
+
+
+echo "Download Module..."
+cmd="drush dl views,ctools,panels,profile2 -y"
+su -c "$cmd"
+
+echo "Enable Module..."
+cmd="drush en ctools_custom_content, ctools_access_ruleset, stylizer, term_depth, ctools_plugin_example, ctools_ajax_sample, views_content, bulk_export, page_manager, ctools,panels_node, i18n_panels, panels_ipe, panels_mini, panels,profile2_i18n, profile2_page, profile2_og_access, profile2 -y"
 su -c "$cmd"
